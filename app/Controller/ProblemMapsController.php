@@ -912,9 +912,7 @@ class ProblemMapsController extends AppController {
 			'recursive' => -1
 		));
 
-//		print_r($centroids);
 		foreach($entities as $ent_id => $entity){
-//			echo $ent_id.' => '.$entity.'<br/>';
 			$max_similarity = 0;
 			$max_score = -1;
 			$centroid_matched = null;
@@ -923,7 +921,6 @@ class ProblemMapsController extends AppController {
 			foreach($centroids as $centroid => $score){
 				$similarity = $this->get_similarity($entity, $centroid);
 				if ($similarity >= $threshold){
-//					print_r('Entity: '.$entity." Score: ".$score." Threshold: ".$threshold);
 					echo '<tr>';
 					echo '<td>'.$entity.'</td>';
 					echo '<td>'.$centroid.'</td>';
@@ -945,18 +942,6 @@ class ProblemMapsController extends AppController {
 		}
 
 	}
-
-//	public function get_similarity($phrase1, $phrase2) {
-//		$url = 'http://swoogle.umbc.edu/SimService/GetSimilarity?operation=api&phrase1='
-//				.urlencode($phrase1).'&phrase2='.urlencode($phrase2).'&corpus=webbase&type=relation';
-//		echo $url.'<br/><br/>';
-//		$curl = curl_init($url);
-//		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-//		$similarity = curl_exec($curl);
-////		echo $result.'<br/><br/>';
-//		return $similarity;
-////		return 0;
-//	}
 
 	public function get_similarity($phrase1, $phrase2) {
 		$url = $url = 'http://localhost:8080/StsService/GetStsSim';
