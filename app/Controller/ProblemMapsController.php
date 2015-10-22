@@ -28,12 +28,12 @@ class ProblemMapsController extends AppController
         'LogEntry',
         'Entity',
         'Decomposition',
-        'EntitySubtypes',
+        'EntityTypeSubtype',
         'TutorialType',
         'TutorialPrompt',
         'ProcessReplays',
         'Perception',
-        'CentriodScore'
+        'CentroidScore'
     );
 
     // determine if the file extension is prolog and if so set the appropriate layout
@@ -201,14 +201,15 @@ class ProblemMapsController extends AppController
         ));
 
         /* Entity Subtypes - Start */
-        $EntitySubtypes = $this->EntitySubtypes->find('all');
-        $Entitytypes = $this->EntitySubtypes->find('all', array('fields' => array('DISTINCT EntitySubtypes.type')));
+        $EntityTypeSubtype = $this->EntityTypeSubtype->find('all');
+        $Entitytypes = $this->EntityTypeSubtype->find('all', array('fields' => array('DISTINCT EntityTypeSubtype.type')));
         $subtypes = [];
         foreach ($Entitytypes as $Entitytype) {
-            $subtypes[$Entitytype['EntitySubtypes']['type']] = [];
+            $subtypes[$Entitytype['EntityTypeSubtype']['type']] = [];
         }
-        foreach ($EntitySubtypes as $EntitySubtype) {
-            array_push($subtypes[$EntitySubtype['EntitySubtypes']['type']], $EntitySubtype['EntitySubtypes']['subtype']);
+        foreach ($EntityTypeSubtype as $EntitySubtype) {
+            if(!empty($EntitySubtype['EntityTypeSubtype']['subtype']))
+                array_push($subtypes[$EntitySubtype['EntityTypeSubtype']['type']], $EntitySubtype['EntityTypeSubtype']['subtype']);
         }
 
         $this->set(compact('subtypes'));
@@ -395,7 +396,6 @@ class ProblemMapsController extends AppController
         } else {
             foreach ($ent_arr as $ent) {
                 if ($ent['decomposition_id'] == $id) {
-                    //echo json_encode($ent).'<br><br>';
                     $data = [];
                     $data['id'] = $ent['id'];
 
@@ -637,7 +637,6 @@ class ProblemMapsController extends AppController
         $error = false;
 
         // check if the data is being posted (submitted).
-
         if ($this->request->is('post')) {
 
             // get the logged in user id
@@ -755,7 +754,7 @@ class ProblemMapsController extends AppController
             'conditions' => array(
                 'Entity.problem_map_id' => $id,
                 'Entity.type' => 'requirement',
-                'Entity.subtype' => 'specification' // data whose subtype is 'specification'
+                'Entity.subtype' => 'specification'
             )
         ));
 
@@ -870,55 +869,81 @@ class ProblemMapsController extends AppController
         $ProblemMap = $this->ProblemMap->findById($pmapid);
         $this->set(compact('ProblemMap'));
 
-        $entity_type = 'function';    //TODO - Modify Entity Type dynamically
-        $threshold = 0.6;            //TODO: How to determine the threshold limit?
-        $prob_set_id = 1;            //TODO: D1, D2 or ..?
+        $prob_set_id = $ProblemMap['ProblemMap']['problem_set_id']; //Ex: D1 Challenge
 
-        $entities = $this->Entity->find('list', array(
-            'conditions' => array('Entity.problem_map_id' => $pmapid, 'Entity.type' => $entity_type),
-            'fields' => array('Entity.name'),
-            'recursive' => -1
-        ));
+        $EntityTypeSubtypes = $this->EntityTypeSubtype->find('all', array(
+            'fields' => array('EntityTypeSubtype.type', 'EntityTypeSubtype.subtype'))
+        );
 
-        $centroids = $this->CentriodScore->find('list', array(
-            'conditions' => array(
-                'CentriodScore.problem_set_id' => $prob_set_id,
-                'CentriodScore.threshold' => $threshold,
-                'CentriodScore.entity_type' => $entity_type
-            ),
-            'fields' => array('CentriodScore.centroid', 'CentriodScore.score'),
-            'recursive' => -1
-        ));
+        foreach($EntityTypeSubtypes as $EntityTypeSubtype) {
+            $threshold = 0.6;
+            $entity_type = $EntityTypeSubtype['EntityTypeSubtype']['type'];
+            $entity_subtype = $EntityTypeSubtype['EntityTypeSubtype']['subtype'];
 
-        foreach ($entities as $ent_id => $entity) {
-            $max_similarity = 0;
-            $max_score = -1;
-            $centroid_matched = null;
-            echo '<table border="1">';
-            echo '<tr><th>Entity</th><th>Centroid</th><th>Judge Score</th><th>Similarity Score</th></tr>';
-            foreach ($centroids as $centroid => $score) {
-                $similarity = $this->get_similarity($entity, $centroid);
-                if ($similarity >= $threshold) {
-                    echo '<tr>';
-                    echo '<td>' . $entity . '</td>';
-                    echo '<td>' . $centroid . '</td>';
-                    echo '<td>' . $score . '</td>';
-                    echo '<td>' . $similarity . '</td>';
-                    echo '</tr>';
-                    if ($similarity > $max_similarity || is_null($centroid_matched)) {
-                        $max_similarity = $similarity;
-                        $max_score = $score;
-                        $centroid_matched = $centroid;
+            $entities = $this->Entity->find('list', array(
+                'conditions' => array('Entity.problem_map_id' => $pmapid, 'Entity.type' => $entity_type,
+                    'Entity.subtype' => $entity_subtype ),
+                'fields' => array('Entity.name'),
+                'recursive' => -1
+            ));
+
+            do {
+                $centroids = $this->CentroidScore->find('list', array(
+                    'conditions' => array(
+                        'CentroidScore.problem_set_id' => $prob_set_id,
+                        'CentroidScore.entity_type' => $entity_type,
+                        'CentroidScore.entity_subtype' => $entity_subtype,
+                        'CentroidScore.threshold' => $threshold
+                    ),
+                    'fields' => array('CentroidScore.entity_name', 'CentroidScore.score'),
+                    'recursive' => -1
+                ));
+                if(empty($centroids))
+                    $threshold = 0.5;
+            }while(empty($centroids));
+
+            if(empty($centroids)){
+                $threshold = 0.5;
+                $centroids = $this->CentroidScore->find('list', array(
+                    'conditions' => array(
+                        'CentroidScore.problem_set_id' => $prob_set_id,
+                        'CentroidScore.entity_type' => $entity_type,
+                        'CentroidScore.entity_subtype' => $entity_subtype,
+                        'CentroidScore.threshold' => $threshold
+                    ),
+                    'fields' => array('CentroidScore.entity_name', 'CentroidScore.score'),
+                    'recursive' => -1
+                ));
+            }
+            echo '<h3>' . $entity_type .' | '. $entity_subtype .' | '. $threshold . '</h3>';
+            foreach ($entities as $ent_id => $entity) {
+                $max_similarity = 0;
+                $max_score = -1;
+                $centroid_matched = null;
+                echo '<table border="1">';
+                echo '<tr><th>Entity</th><th>Centroid</th><th>Judge Score</th><th>Similarity Score</th></tr>';
+                foreach ($centroids as $centroid => $score) {
+                    $similarity = $this->get_similarity($entity, $centroid);
+                    if ($similarity >= $threshold) {
+                        echo '<tr>';
+                        echo '<td>' . $entity . '</td>';
+                        echo '<td>' . $centroid . '</td>';
+                        echo '<td>' . $score . '</td>';
+                        echo '<td>' . $similarity . '</td>';
+                        echo '</tr>';
+                        if ($similarity > $max_similarity || is_null($centroid_matched)) {
+                            $max_similarity = $similarity;
+                            $max_score = $score;
+                            $centroid_matched = $centroid;
+                        }
                     }
                 }
+                echo '</table>';
+                echo '<b>Entity: </b>' . $entity . ' <b>Centroid: </b>' . $centroid_matched . '<br/>';
+                echo '<b>Maximum Similarity:</b> ' . $max_similarity . ' <b>Score:</b> ' . $max_score;
+                echo '<br/><br/><br/>';
             }
-            echo '</table>';
-            echo '<b>Entity: </b>' . $entity . ' <b>Centroid: </b>' . $centroid_matched . '<br/>';
-            echo '<b>Maximum Similarity:</b> ' . $max_similarity . ' <b>Score:</b> ' . $max_score;
-            echo '<br/><br/><br/>';
-//			break;
         }
-
     }
 
     public function get_similarity($phrase1, $phrase2)
