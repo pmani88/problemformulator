@@ -875,11 +875,20 @@ class ProblemMapsController extends AppController
             'fields' => array('EntityTypeSubtype.type', 'EntityTypeSubtype.subtype'))
         );
 
+        $cnt_ent_scored = 0;
+        $cnt_ent_not_scored = 0;
+        $total_score = 0;
+
+        $entities_score = [];
+        $entity_score = [];
+
+        $scores_by_category_html = '<table border="1">';
+        $scores_by_category_html .= '<tr><th>Type</th><th>Subtype</th><th>Score</th></tr>';
         foreach($EntityTypeSubtypes as $EntityTypeSubtype) {
             $threshold = 0.6;
             $entity_type = $EntityTypeSubtype['EntityTypeSubtype']['type'];
             $entity_subtype = $EntityTypeSubtype['EntityTypeSubtype']['subtype'];
-
+            $entity_cat_score = 0;
             $entities = $this->Entity->find('list', array(
                 'conditions' => array('Entity.problem_map_id' => $pmapid, 'Entity.type' => $entity_type,
                     'Entity.subtype' => $entity_subtype ),
@@ -902,48 +911,60 @@ class ProblemMapsController extends AppController
                     $threshold = 0.5;
             }while(empty($centroids));
 
-            if(empty($centroids)){
-                $threshold = 0.5;
-                $centroids = $this->CentroidScore->find('list', array(
-                    'conditions' => array(
-                        'CentroidScore.problem_set_id' => $prob_set_id,
-                        'CentroidScore.entity_type' => $entity_type,
-                        'CentroidScore.entity_subtype' => $entity_subtype,
-                        'CentroidScore.threshold' => $threshold
-                    ),
-                    'fields' => array('CentroidScore.entity_name', 'CentroidScore.score'),
-                    'recursive' => -1
-                ));
-            }
-            echo '<h3>' . $entity_type .' | '. $entity_subtype .' | '. $threshold . '</h3>';
+//            echo '<h3>' . $entity_type .' | '. $entity_subtype .' | '. $threshold . '</h3>';
             foreach ($entities as $ent_id => $entity) {
                 $max_similarity = 0;
-                $max_score = -1;
+                $max_score = -2;
                 $centroid_matched = null;
-                echo '<table border="1">';
-                echo '<tr><th>Entity</th><th>Centroid</th><th>Judge Score</th><th>Similarity Score</th></tr>';
+//                echo '<table border="1">';
+//                echo '<tr><th>Entity</th><th>Centroid</th><th>Judge Score</th><th>Similarity Score</th></tr>';
                 foreach ($centroids as $centroid => $score) {
                     $similarity = $this->get_similarity($entity, $centroid);
                     if ($similarity >= $threshold) {
-                        echo '<tr>';
-                        echo '<td>' . $entity . '</td>';
-                        echo '<td>' . $centroid . '</td>';
-                        echo '<td>' . $score . '</td>';
-                        echo '<td>' . $similarity . '</td>';
-                        echo '</tr>';
+//                        echo '<tr>';
+//                        echo '<td>' . $entity . '</td>';
+//                        echo '<td>' . $centroid . '</td>';
+//                        echo '<td>' . $score . '</td>';
+//                        echo '<td>' . $similarity . '</td>';
+//                        echo '</tr>';
                         if ($similarity > $max_similarity || is_null($centroid_matched)) {
                             $max_similarity = $similarity;
                             $max_score = $score;
                             $centroid_matched = $centroid;
                         }
                     }
+
                 }
-                echo '</table>';
-                echo '<b>Entity: </b>' . $entity . ' <b>Centroid: </b>' . $centroid_matched . '<br/>';
-                echo '<b>Maximum Similarity:</b> ' . $max_similarity . ' <b>Score:</b> ' . $max_score;
-                echo '<br/><br/><br/>';
+                if($max_score > -2) {
+                    $cnt_ent_scored++;
+                    $entity_score['id'] = $ent_id;
+                    $entity_score['ent_score'] = $max_score;
+                    array_push($entities_score, $entity_score);
+                    $entity_cat_score = $entity_cat_score + $max_score;
+                }
+                else {
+                    $cnt_ent_not_scored++;
+                }
+//                echo '</table>';
+//                echo '<b>Entity: </b>' . $entity . ' <b>Centroid: </b>' . $centroid_matched . '<br/>';
+//                echo '<b>Maximum Similarity:</b> ' . $max_similarity . ' <b>Score:</b> ' . $max_score;
+//                echo '<br/><br/><br/>';
             }
+            $total_score = $total_score + $entity_cat_score;
+//            echo '<i> Type: ' . $entity_type .' Subtype: '. $entity_subtype .' Threshold '. $threshold . ' Score: '. $entity_cat_score .'</i><br/>';
+            $scores_by_category_html .= "<tr><td>$entity_type</td><td>$entity_subtype</td><td>$entity_cat_score</td></tr>";
         }
+        $scores_by_category_html .= '</table>';
+
+        $this->set('cnt_ent_scored', $cnt_ent_scored);
+        $this->set('cnt_ent_not_scored', $cnt_ent_not_scored);
+        $this->set('total_score', $total_score);
+        $this->set('scores_to_display', $scores_by_category_html);
+
+//        echo '<h3> Total No. of entities: '.($cnt_ent_scored + $cnt_ent_not_scored).'</h3>';
+//        echo '<h3> No. of entities scored: '.$cnt_ent_scored.'</h3>';
+//        echo '<h3> No. of entities not scored: '.$cnt_ent_not_scored.'</h3>';
+        $this->Entity->saveAll($entities_score);
     }
 
     public function get_similarity($phrase1, $phrase2)
