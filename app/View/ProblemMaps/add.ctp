@@ -1,5 +1,5 @@
 <!-- app/View/ProblemMaps/add.ctp -->
-<div class="row-fluid">
+<div class="row-fluid" xmlns="http://www.w3.org/1999/html">
     <div class="span5 offset3">
     <?php //echo $this->Form->create('User');?>
     <?php echo $this->Form->create(array(
@@ -19,6 +19,11 @@
             <legend><?php echo __('Create Problem Map'); ?></legend>
         <?php
             echo $this->Form->input('name');
+            echo $this->Form->input('problem_set_id', array(
+                'type'    => 'select',
+                'options' => $problem_sets,
+                'empty'   => false
+            ));
             echo $this->Form->input('description');
             echo '<div class="controls"><button type="submit" class="btn btn-primary">Create 
                 Problem Map</button> ';

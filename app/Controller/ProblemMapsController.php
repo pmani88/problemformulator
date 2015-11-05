@@ -1,6 +1,7 @@
 <?php
 App::uses('File', 'Utility');
 require_once("../Config/database.php");
+//require_once("http://localhost:8080/JavaBridge/java/Java.inc");
 
 // Controller/ProblemMapsController.php
 class ProblemMapRank
@@ -33,7 +34,8 @@ class ProblemMapsController extends AppController
         'TutorialPrompt',
         'ProcessReplays',
         'Perception',
-        'CentroidScore'
+        'CentroidScore',
+        'ProblemSet'
     );
 
     // determine if the file extension is prolog and if so set the appropriate layout
@@ -93,7 +95,11 @@ class ProblemMapsController extends AppController
             'save_action',
             'save_perception',
             'reset_invalid_current_decomposition',
-            'get_similarity'
+            'get_similarity',
+            'calculate_pmap_skills',
+            'calculate_raw_pmap_score',
+            'display_pmap_score',
+            'manual_pmap_scoring'
         ))) {
             return true;
         }
@@ -208,7 +214,7 @@ class ProblemMapsController extends AppController
             $subtypes[$Entitytype['EntityTypeSubtype']['type']] = [];
         }
         foreach ($EntityTypeSubtype as $EntitySubtype) {
-            if(!empty($EntitySubtype['EntityTypeSubtype']['subtype']))
+            if (!empty($EntitySubtype['EntityTypeSubtype']['subtype']))
                 array_push($subtypes[$EntitySubtype['EntityTypeSubtype']['type']], $EntitySubtype['EntityTypeSubtype']['subtype']);
         }
 
@@ -633,9 +639,11 @@ class ProblemMapsController extends AppController
 
     public function add()
     {
-        $this->Session->setFlash('.....');
         $error = false;
-
+        $problem_sets = $this->ProblemSet->find('list', array(
+            'order' => array('ProblemSet.id' => 'desc')
+        ));
+        $this->set(compact("problem_sets"));
         // check if the data is being posted (submitted).
         if ($this->request->is('post')) {
 
@@ -665,6 +673,46 @@ class ProblemMapsController extends AppController
 
                 // set message to be displayed to user via CakePHP flash
                 $this->Session->setFlash('Your Problem Map has been created.');
+
+                // redirect the user
+                $this->redirect(array(
+                    'action' => 'index'
+                ));
+            }
+
+            // this is for JSON and XML requests.
+            $this->set(compact("message"));
+            $this->set('_serialize', array(
+                'message'
+            ));
+        }
+    }
+
+    public function add_problem_set()
+    {
+        $error = false;
+        // check if the data is being posted (submitted).
+        if ($this->request->is('post')) {
+
+            // start database transaction
+            $this->ProblemSet->begin();
+            if (!$this->ProblemSet->save($this->request->data)) {
+                $error = true;
+            }
+
+            // handle transaction and message
+            if ($error) {
+                // rollback transaction
+                $this->ProblemSet->rollback();
+                // set message to be displayed to user via CakePHP flash
+                $this->Session->setFlash('Unable to create problem set.');
+            } else {
+                // commit transaction
+                $this->ProblemSet->commit();
+                $message = 'Saved';
+
+                // set message to be displayed to user via CakePHP flash
+                $this->Session->setFlash('Problem Set has been created.');
 
                 // redirect the user
                 $this->redirect(array(
@@ -865,14 +913,59 @@ class ProblemMapsController extends AppController
 
     public function pmap_score($pmapid)
     {
-        $this->ProblemMap->recursive = -1;
-        $ProblemMap = $this->ProblemMap->findById($pmapid);
-        $this->set(compact('ProblemMap'));
+//        $obj = new Java("Classifiers.MainClassifier");
+//        $obj->fetchScore($pmapid);
+//        $this->calculate_pmap_skills($pmapid);
+//        return;
 
-        $prob_set_id = $ProblemMap['ProblemMap']['problem_set_id']; //Ex: D1 Challenge
+        if ($this->request->is('post'))
+        {
+            // to store in entities table or entity_score table for judge?
+            $this->Entity->saveAll($this->request->data['Entity']);
+        }
+
+        $this->ProblemMap->recursive = -1;
+        $problem_map = $this->ProblemMap->findById($pmapid);
+        $this->set(compact('problem_map'));
+
+        $is_scored = $problem_map['ProblemMap']['is_scored'];
+        $this->set(compact('is_scored'));
+        $this->display_pmap_score($problem_map);
+        return;
+
+
+//        if user is judge? || is student?
+//              if not scored || pending for manual evaluation? || scored? (all combinations)
+
+
+//         what happens when after manually scored by judge? and when? - after how many judges scored it?
+//                  cluster?
+
+
+        switch ($is_scored) {
+            case 0: // not scored
+                $this->calculate_raw_pmap_score($problem_map);
+                $this->display_pmap_score($problem_map);
+                break;
+            case 1: // scored
+                $this->display_pmap_score($problem_map);
+                break;
+            case 2: // need manual grading
+//                $this->calculate_pmap_skills($pmapid);
+//                if user is judge display the form else display only score
+                $this->display_pmap_score($problem_map);
+                break;
+        }
+    }
+
+    // calculate scores of pmap entities
+    public function calculate_raw_pmap_score($problem_map)
+    {
+        $pmapid = $problem_map['ProblemMap']['id'];
+        $prob_set_id = $problem_map['ProblemMap']['problem_set_id']; //Ex: D1 Challenge
 
         $EntityTypeSubtypes = $this->EntityTypeSubtype->find('all', array(
-            'fields' => array('EntityTypeSubtype.type', 'EntityTypeSubtype.subtype'))
+                'fields' => array('EntityTypeSubtype.type', 'EntityTypeSubtype.subtype'))
         );
 
         $cnt_ent_scored = 0;
@@ -884,18 +977,19 @@ class ProblemMapsController extends AppController
 
         $scores_by_category_html = '<table border="1">';
         $scores_by_category_html .= '<tr><th>Type</th><th>Subtype</th><th>Score</th></tr>';
-        foreach($EntityTypeSubtypes as $EntityTypeSubtype) {
+        foreach ($EntityTypeSubtypes as $EntityTypeSubtype) {
             $threshold = 0.6;
             $entity_type = $EntityTypeSubtype['EntityTypeSubtype']['type'];
             $entity_subtype = $EntityTypeSubtype['EntityTypeSubtype']['subtype'];
             $entity_cat_score = 0;
             $entities = $this->Entity->find('list', array(
                 'conditions' => array('Entity.problem_map_id' => $pmapid, 'Entity.type' => $entity_type,
-                    'Entity.subtype' => $entity_subtype ),
+                    'Entity.subtype' => $entity_subtype),
                 'fields' => array('Entity.name'),
                 'recursive' => -1
             ));
 
+            $exit_flag = 0;
             do {
                 $centroids = $this->CentroidScore->find('list', array(
                     'conditions' => array(
@@ -907,51 +1001,51 @@ class ProblemMapsController extends AppController
                     'fields' => array('CentroidScore.entity_name', 'CentroidScore.score'),
                     'recursive' => -1
                 ));
-                if(empty($centroids))
+                if (empty($centroids)) {
                     $threshold = 0.5;
-            }while(empty($centroids));
+                    $exit_flag = 1;
+                }
 
-//            echo '<h3>' . $entity_type .' | '. $entity_subtype .' | '. $threshold . '</h3>';
+            } while (empty($centroids) and $exit_flag == 1);
+
+            echo '<h4>' . $entity_type . ' | ' . $entity_subtype . ' | ' . $threshold . '</h4>';
             foreach ($entities as $ent_id => $entity) {
                 $max_similarity = 0;
-                $max_score = -2;
+                $max_score = -100;
                 $centroid_matched = null;
-//                echo '<table border="1">';
-//                echo '<tr><th>Entity</th><th>Centroid</th><th>Judge Score</th><th>Similarity Score</th></tr>';
+                echo '<table border="1">';
+                echo '<tr><th>Entity</th><th>Centroid</th><th>Judge Score</th><th>Similarity Score</th></tr>';
                 foreach ($centroids as $centroid => $score) {
                     $similarity = $this->get_similarity($entity, $centroid);
                     if ($similarity >= $threshold) {
-//                        echo '<tr>';
-//                        echo '<td>' . $entity . '</td>';
-//                        echo '<td>' . $centroid . '</td>';
-//                        echo '<td>' . $score . '</td>';
-//                        echo '<td>' . $similarity . '</td>';
-//                        echo '</tr>';
+                        echo '<tr>';
+                        echo '<td>' . $entity . '</td>';
+                        echo '<td>' . $centroid . '</td>';
+                        echo '<td>' . $score . '</td>';
+                        echo '<td>' . $similarity . '</td>';
+                        echo '</tr>';
                         if ($similarity > $max_similarity || is_null($centroid_matched)) {
                             $max_similarity = $similarity;
                             $max_score = $score;
                             $centroid_matched = $centroid;
                         }
                     }
-
                 }
-                if($max_score > -2) {
+                if ($max_score > -100) {
                     $cnt_ent_scored++;
                     $entity_score['id'] = $ent_id;
                     $entity_score['ent_score'] = $max_score;
                     array_push($entities_score, $entity_score);
                     $entity_cat_score = $entity_cat_score + $max_score;
-                }
-                else {
+                } else {
                     $cnt_ent_not_scored++;
                 }
-//                echo '</table>';
-//                echo '<b>Entity: </b>' . $entity . ' <b>Centroid: </b>' . $centroid_matched . '<br/>';
-//                echo '<b>Maximum Similarity:</b> ' . $max_similarity . ' <b>Score:</b> ' . $max_score;
-//                echo '<br/><br/><br/>';
+                echo '</table>';
+                echo '<b>Entity: </b>' . $entity . ' <b>Centroid: </b>' . $centroid_matched . '<br/>';
+                echo '<b>Maximum Similarity:</b> ' . $max_similarity . ' <b>Score:</b> ' . (($max_score == -100) ? 'NA' : $max_score);
+                echo '<br/><br/><br/>';
             }
             $total_score = $total_score + $entity_cat_score;
-//            echo '<i> Type: ' . $entity_type .' Subtype: '. $entity_subtype .' Threshold '. $threshold . ' Score: '. $entity_cat_score .'</i><br/>';
             $scores_by_category_html .= "<tr><td>$entity_type</td><td>$entity_subtype</td><td>$entity_cat_score</td></tr>";
         }
         $scores_by_category_html .= '</table>';
@@ -961,10 +1055,15 @@ class ProblemMapsController extends AppController
         $this->set('total_score', $total_score);
         $this->set('scores_to_display', $scores_by_category_html);
 
-//        echo '<h3> Total No. of entities: '.($cnt_ent_scored + $cnt_ent_not_scored).'</h3>';
-//        echo '<h3> No. of entities scored: '.$cnt_ent_scored.'</h3>';
-//        echo '<h3> No. of entities not scored: '.$cnt_ent_not_scored.'</h3>';
-        $this->Entity->saveAll($entities_score);
+        if (count($entities_score) > 0) {
+            $this->Entity->saveAll($entities_score);
+        }
+
+//        if ($cnt_ent_not_scored > 0) {
+//            $this->ProblemMap->save(array("id" => $pmapid, "is_scored" => 2)); // requires manual grading
+//        } else {
+//            $this->ProblemMap->save(array("id" => $pmapid, "is_scored" => 1)); // pmap has final score
+//        }
     }
 
     public function get_similarity($phrase1, $phrase2)
@@ -978,5 +1077,48 @@ class ProblemMapsController extends AppController
         $similarity = curl_exec($ch);
         curl_close($ch);
         return $similarity;
+    }
+
+    public function calculate_pmap_skills($pmapid)
+    {
+        $this->Entity->recursive = -1;
+
+        //Requirement without any subcategories
+        $rec_nsc_score = $this->Entity->query('SELECT SUM(ent_score) as score FROM entities
+                                               WHERE problem_map_id = ' . $pmapid . ' and type="requirement" and subtype="" and ent_score > -1');
+
+        $rec_obj_score = $this->Entity->query('SELECT SUM(ent_score) as score FROM entities
+                                               WHERE problem_map_id = ' . $pmapid . ' and type="requirement" and subtype="objective" and ent_score > -1');
+//        $req_no_sc = $this->Entity->find('all', array(
+//            'conditions' => array(
+//                'Entity.problem_map_id' => $pmapid,
+//                'Entity.entity_type' => 'requirement',
+//                'Entity.entity_subtype' => ''
+//            ))
+//        );
+//        print_r($rec_nsc_score);
+        echo 'Requirement Elicitation: ' . ($rec_nsc_score[0][0]['score'] || 0);
+        echo 'Objective: ' . $rec_obj_score[0][0]['score'];
+    }
+
+    public function display_pmap_score($problem_map)
+    {
+        $this->manual_pmap_scoring($problem_map);
+    }
+
+    public function manual_pmap_scoring($problem_map)
+    {
+        $pmapid = $problem_map['ProblemMap']['id'];
+
+        $entities_to_score = $this->Entity->find('all', array(
+            'conditions' => array(
+                'Entity.problem_map_id' => $pmapid,
+                'Entity.ent_score' => 0
+            ),
+            'fields' => array('id', 'name', 'type', 'subtype', 'ent_score'),
+            'order' => array('type', 'subtype'),
+            'recursive' => -1
+        ));
+        $this->set(compact('entities_to_score'));
     }
 }

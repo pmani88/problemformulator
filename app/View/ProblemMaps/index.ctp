@@ -6,9 +6,14 @@ $this->Html->css('index-pmap', null, array('inline' => false));
 
 <div class="page-header text-center">
     <h1>Available Problem Maps</h1>
-    <p><?php echo $this->Html->link('Add New Problem Map', array(
-        'action' => 'add'
-       )); ?>
+    <p>
+		<?php
+			echo $this->Html->link('Add New Problem Map', array('action' => 'add'));
+			if($admin) {
+				echo ' | ';
+				echo $this->Html->link('Add New Problem Set', array('action' => 'add_problem_set'));
+			}
+		?>
     </p>
 </div>
 <table class="table table-striped">

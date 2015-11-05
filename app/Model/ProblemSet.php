@@ -27,9 +27,7 @@ class ProblemSet extends AppModel {
 				'message' => 'Problem Set name already exist.'
 			),
 			'nameRule-2' => array(
-				'rule' => 'required',
-				'required' => true,
-				'allowEmpty' => false,
+				'rule' => 'notEmpty',
 				'message' => 'Problem Set name is required.'
 			)
 		)
