@@ -913,15 +913,19 @@ class ProblemMapsController extends AppController
 
     public function pmap_score($pmapid)
     {
-//        $obj = new Java("Classifiers.MainClassifier");
-//        $obj->fetchScore($pmapid);
-//        $this->calculate_pmap_skills($pmapid);
-//        return;
+        //  TODO: function call category_suggestion
+        //        $obj = new Java("Classifiers.MainClassifier");
+        //        $obj->fetchScore($pmapid);
+        //        $this->calculate_pmap_skills($pmapid);
+        //        return;
 
         if ($this->request->is('post'))
         {
-            // to store in entities table or entity_score table for judge?
-            $this->Entity->saveAll($this->request->data['Entity']);
+            // TODO: to store in entities table or entity_score table for judge?
+            if (isset($this->request->data['Manual_Score'])) {
+                print_r($this->request->data['Manual_Score']);
+//            $this->Entity->saveAll($this->request->data['Entity']);
+            }
         }
 
         $this->ProblemMap->recursive = -1;
@@ -934,9 +938,9 @@ class ProblemMapsController extends AppController
         return;
 
 
+//        TODO
 //        if user is judge? || is student?
 //              if not scored || pending for manual evaluation? || scored? (all combinations)
-
 
 //         what happens when after manually scored by judge? and when? - after how many judges scored it?
 //                  cluster?

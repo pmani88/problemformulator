@@ -1,0 +1,36 @@
+.sub-heading {
+    margin: 20px 110px 0px;
+}
+
+table {
+    border: 1px solid #000000;
+    margin: auto;
+}
+
+tr {
+    height: 40px;
+}
+
+td {
+    padding: 10px 38px;
+}
+
+td.center-text {
+    text-align: center;
+}
+
+td.merged-cell {
+    font-size: 50px;
+}
+
+select {
+    width: auto;
+}
+
+.form-horizontal .controls {
+    margin: 10px 0 0 112px;
+}
+
+.form-horizontal .controls .btn-primary {
+    width: 150px;
+}

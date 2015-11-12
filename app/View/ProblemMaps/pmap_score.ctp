@@ -1,8 +1,18 @@
-<?php $this->Html->css('view_list', null, array('inline' => false)); ?>
+<?php
+$this->Html->css('view_list', null, array('inline' => false));
+$this->Html->css('pmap_score', null, array('inline' => false));
+//$this->Html->css('pmap_score_plain', null, array('inline' => false));
+?>
 <div class="row-fluid">
     <div class="span10 offset1 page-header">
         <h1>
             <?php echo $problem_map['ProblemMap']['name']; ?>
+            <small>(<?php echo $this->Html->link("List View", array(
+                    'controller' => 'problem_maps',
+                    'action' => 'view_list',
+                    $problem_map['ProblemMap']['id']
+                )); ?>)
+            </small>
             <small>(<?php echo $this->Html->link("Tree View", array(
                     'controller' => 'problem_maps',
                     'action' => 'view_graph',
@@ -58,21 +68,48 @@
 //}
 
 ?>
+<h3 class="sub-heading">P-Map Score</h3>
+<table>
+    <tr>
+        <th>Total Score</th>
+        <th>PMap Skill</th>
+        <th>Score</th>
+    </tr>
+    <tr class="odd">
+        <td class="merged-cell" rowspan="5">50</td>
+        <td>Requirement Elicitation</td>
+        <td>10</td>
+    </tr>
+    <tr class="even">
+        <td>Requirement Elicitation</td>
+        <td>10</td>
+    </tr>
+    <tr class="odd">
+        <td>Requirement Elicitation</td>
+        <td>10</td>
+    </tr>
+    <tr class="even">
+        <td>Requirement Elicitation</td>
+        <td>10</td>
+    </tr>
+    <tr class="odd">
+        <td>Requirement Elicitation</td>
+        <td>10</td>
+    </tr>
+</table>
 
-<?php echo $this->Form->create('Entity', array(
+
+
+<h3 class="sub-heading">Manual Scoring</h3>
+<?php echo $this->Form->create('Manual_Score', array(
     'class' => 'form-horizontal',
     'inputDefaults' => array(
-        'format' => array('before', 'label', 'between', 'input', 'error',
-            'after'),
-        'div' => array('class' => 'control-group'),
-        'label' => array('class' => 'control-label'),
-        'between' => '<div class="controls">',
-        'after' => '</div>',
+
         'error' => array('attributes' => array('wrap' => 'span', 'class' =>
             'help-inline')),
     )));
 ?>
-<table border="1">
+<table>
     <tr>
         <th>Entity</th>
         <th>Type</th>
@@ -81,16 +118,19 @@
     </tr>
     <?php
     $n = 1;
+    $is_odd = true;
     foreach ($entities_to_score as $entity) {
-        echo '<tr>';
+        echo '<tr class="' . ($is_odd ? 'odd' : 'even') . '">';
+        $is_odd = !$is_odd;
         echo '<td>' . $entity['Entity']['name'] . '</td>';
-        echo '<td>' . $entity['Entity']['type'] . '</td>';
-        echo '<td>' . $entity['Entity']['subtype'] . '</td>';
+        echo '<td class="center-text">' . ucwords($entity['Entity']['type']) . '</td>';
+        echo '<td class="center-text">' . ucwords($entity['Entity']['subtype']) . '</td>';
         echo '<td>';
-        echo $this->Form->input($n.'.id', array('type'=>'hidden', 'value' => $entity['Entity']['id']));
-        echo $this->Form->input($n.'.ent_score', array(
+        echo $this->Form->input($n . '.id', array('type' => 'hidden', 'value' => $entity['Entity']['id']));
+        echo $this->Form->input($n . '.ent_score', array(
                 'type' => 'select',
-                'options' => array_combine(range(-1, 3, 1), range(-1, 3, 1))
+                'options' => array_combine(range(-1, 3, 1), range(-1, 3, 1)),
+                'label' => false
             )
         );
         echo '</td>';
@@ -100,130 +140,6 @@
     ?>
 </table>
 <?php
-    echo '<div class="controls"><button type="submit" class="btn btn-primary">Save</button> ';
-    echo $this->Form->end();
+echo '<div class="controls"><button type="submit" class="btn btn-primary">Save</button> ';
+echo $this->Form->end();
 ?>
-<!--<div class="row-fluid scroll active" style="height: 600px;">
-    <ul id="artifact" class="entity-list">
-        <li class="entity" data-target="#context-menu" entity-id="3022" entity-type="artifact" entity-subtype="">
-            <i class="icon icon-folder-open pull-left folder"></i>
-            <div class="name editable" contenteditable="false">
-                device &nbsp <input type="text" size="5"/>
-            </div>
-            <ul>
-                <li class="entity" data-target="#context-menu" entity-id="3024" entity-type="artifact" entity-subtype="">
-                    <i class="icon icon-file pull-left"></i>
-                    <span class="sup pull-left"></span>
-                    <div class="name editable" contenteditable="false">
-                        thrower &nbsp <input type="text" size="5"/>
-                    </div>
-                    <ul></ul>
-                </li>
-            </ul>
-        </li>
-        <li class="entity" data-target="#context-menu" entity-id="3009" entity-type="artifact" entity-subtype="">
-            <i class="icon icon-folder-open pull-left folder"></i>
-            <div class="name editable" contenteditable="false">
-                device &nbsp <input type="text" size="5"/>
-            </div>
-            <ul>
-                <li class="entity" data-target="#context-menu" entity-id="3012" entity-type="artifact" entity-subtype="">
-                    <i class="icon icon-file pull-left"></i>
-                    <span class="sup pull-left"></span>
-                    <div class="name editable" contenteditable="false">
-                        wheels &nbsp <input type="text" size="5"/>
-                    </div>
-                    <ul></ul>
-                </li>
-                <li class="entity" data-target="#context-menu" entity-id="3010" entity-type="artifact" entity-subtype="">
-                    <i class="icon icon-file pull-left"></i>
-                    <span class="sup pull-left"></span>
-                    <div class="name editable" contenteditable="false">
-                        slider &nbsp <input type="text" size="5"/>
-                    </div>
-                    <ul></ul>
-                </li>
-                <li class="entity" data-target="#context-menu" entity-id="3011" entity-type="artifact" entity-subtype="">
-                    <i class="icon icon-file pull-left"></i>
-                    <span class="sup pull-left"></span>
-                    <div class="name editable" contenteditable="false">
-                        picker tool &nbsp <input type="text" size="5"/>
-                    </div>
-                    <ul></ul>
-                </li>
-            </ul>
-        </li>
-        <li class="entity" data-target="#context-menu" entity-id="3023" entity-type="artifact" entity-subtype="">
-            <i class="icon icon-file pull-left"></i>
-            <span class="sup pull-left"></span>
-            <div class="name editable" contenteditable="false">
-                gripper &nbsp <input type="text" size="5"/>
-            </div>
-            <ul></ul>
-        </li>
-        <li class="entity" data-target="#context-menu" entity-id="3025" entity-type="artifact" entity-subtype="">
-            <i class="icon icon-file pull-left"></i>
-            <span class="sup pull-left"></span>
-            <div class="name editable" contenteditable="false">
-                wheels &nbsp <input type="text" size="5"/>
-            </div>
-            <ul></ul>
-        </li>
-        <li class="entity" data-target="#context-menu" entity-id="3026" entity-type="artifact" entity-subtype="">
-            <i class="icon icon-file pull-left"></i>
-            <span class="sup pull-left"></span>
-            <div class="name editable" contenteditable="false">
-                picker tool &nbsp <input type="text" size="5"/>
-            </div>
-            <ul></ul>
-        </li>
-        <li class="entity" data-target="#context-menu" entity-id="3027" entity-type="artifact" entity-subtype="">
-            <i class="icon icon-file pull-left"></i>
-            <span class="sup pull-left"></span>
-            <div class="name editable" contenteditable="false">
-                slider &nbsp <input type="text" size="5"/>
-            </div>
-            <ul></ul>
-        </li>
-        <li class="entity" data-target="#context-menu" entity-id="3028" entity-type="artifact" entity-subtype="">
-            <i class="icon icon-folder-close pull-left folder"></i>
-            <span class="sup pull-left"></span>
-            <div class="name editable" contenteditable="false">
-                device &nbsp <input type="text" size="5"/>
-            </div>
-            <ul></ul>
-        </li>
-        <li class="entity" data-target="#context-menu" entity-id="3031" entity-type="artifact" entity-subtype="">
-            <i class="icon icon-file pull-left"></i>
-            <span class="sup pull-left"></span>
-            <div class="name editable" contenteditable="false">
-                wheels &nbsp <input type="text" size="5"/>
-            </div>
-            <ul></ul>
-        </li>
-        <li class="entity" data-target="#context-menu" entity-id="3032" entity-type="artifact" entity-subtype="">
-            <i class="icon icon-file pull-left"></i>
-            <span class="sup pull-left"></span>
-            <div class="name editable" contenteditable="false">
-                gripper &nbsp <input type="text" size="5"/>
-            </div>
-            <ul></ul>
-        </li>
-        <li class="entity" data-target="#context-menu" entity-id="3033" entity-type="artifact" entity-subtype="">
-            <i class="icon icon-file pull-left"></i>
-            <span class="sup pull-left"></span>
-            <div class="name editable" contenteditable="false">
-                slider &nbsp <input type="text" size="5"/>
-            </div>
-            <ul></ul>
-        </li>
-        <li class="entity" data-target="#context-menu" entity-id="3034" entity-type="artifact" entity-subtype="">
-            <i class="icon icon-folder-close pull-left folder"></i>
-            <span class="sup pull-left"></span>
-            <div class="name editable" contenteditable="false">
-                device &nbsp <input type="text" size="5"/>
-            </div>
-            <ul></ul>
-        </li>
-    </ul>
-</div>-->

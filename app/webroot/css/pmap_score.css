@@ -1,0 +1,55 @@
+body {
+    color: #DC3D3D;
+    background-color: #272424;
+}
+
+.sub-heading {
+    color: #B5A2A2;
+    margin: 20px 110px 0px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 10px;
+    color: #ffffff;
+    margin: auto;
+}
+
+tr {
+    background: #1D4161;
+    height: 40px;
+}
+
+tr.odd {
+    background: #A52727;
+}
+
+tr.even {
+    background: #56294C;
+}
+
+th, td {
+    padding: 10px 38px;
+}
+
+td.center-text {
+    text-align: center;
+}
+
+td.merged-cell {
+    font-size: 50px;
+}
+
+select {
+    background-color: #441414;
+    color: white;
+    width: auto;
+}
+
+.form-horizontal .controls {
+    margin: 10px 0 0 112px;
+}
+
+.form-horizontal .controls .btn-primary {
+    width: 150px;
+}
