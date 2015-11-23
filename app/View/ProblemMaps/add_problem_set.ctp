@@ -18,6 +18,7 @@
             <legend><?php echo __('Create Problem Set'); ?></legend>
             <?php
             echo $this->Form->input('name');
+            echo $this->Form->input('judge_count',array('type' => 'number', 'default' => 0, 'min' => 0));
             echo '<div class="controls"><button type="submit" class="btn btn-primary">Create
                 Problem Set</button> ';
             echo $this->Html->link('Cancel', array('controller' => 'problem_maps', 'action' =>

@@ -12,7 +12,7 @@ table {
     border-collapse: separate;
     border-spacing: 10px;
     color: #ffffff;
-    margin: auto;
+    margin: 0 auto 30px;
 }
 
 tr {
