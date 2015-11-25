@@ -57,62 +57,54 @@ $this->Html->css('pmap_score', null, array('inline' => false));
 //
 //echo java_context()->getServlet()->GetStsSim();
 
-
-if($is_scored == 0) {
-    echo $scores_to_display;
-//    echo "<h4>Total Score: $total_score</h4>";
-    echo '<br/>';
-    echo '<h4> Total No. of entities: ' . ($cnt_ent_scored + $cnt_ent_not_scored) . '</h4>';
-    echo '<h4> No. of entities scored: ' . $cnt_ent_scored . '</h4>';
-    echo '<h4> No. of entities not scored: ' . $cnt_ent_not_scored . '</h4>';
-}
-
 ?>
-<h3 class="sub-heading">P-Map Score</h3>
-<table>
-    <tr>
-        <th>Total Score</th>
-        <th>PMap Skill</th>
-        <th>Score (10)</th>
-    </tr>
-    <tr class="odd">
-        <td class="merged-cell" rowspan="9">90</td>
-        <td>Requirement Elicitation</td>
-        <td>10</td>
-    </tr>
-    <tr class="even">
-        <td>Relationship identification</td>
-        <td>10</td>
-    </tr>
-    <tr class="odd">
-        <td>Information seeking</td>
-        <td>10</td>
-    </tr>
-    <tr class="even">
-        <td>Use description</td>
-        <td>10</td>
-    </tr>
-    <tr class="odd">
-        <td>Key objective identification</td>
-        <td>10</td>
-    </tr>
-    <tr class="even">
-        <td>Challenging issue</td>
-        <td>10</td>
-    </tr>
-    <tr class="odd">
-        <td>Delight addition</td>
-        <td>10</td>
-    </tr>
-    <tr class="even">
-        <td>Specification</td>
-        <td>10</td>
-    </tr>
-    <tr class="odd">
-        <td>Decomposition</td>
-        <td>10</td>
-    </tr>
-</table>
+<?php if ($is_scored == 1) { ?>
+    <h3 class="sub-heading">P-Map Score</h3>
+    <table>
+        <tr>
+            <th>Total Score</th>
+            <th>PMap Skill</th>
+            <th>Score (10)</th>
+        </tr>
+        <tr class="odd">
+            <td class="merged-cell" rowspan="9">90</td>
+            <td>Requirement Elicitation</td>
+            <td>10</td>
+        </tr>
+        <tr class="even">
+            <td>Relationship identification</td>
+            <td>10</td>
+        </tr>
+        <tr class="odd">
+            <td>Information seeking</td>
+            <td>10</td>
+        </tr>
+        <tr class="even">
+            <td>Use description</td>
+            <td>10</td>
+        </tr>
+        <tr class="odd">
+            <td>Key objective identification</td>
+            <td>10</td>
+        </tr>
+        <tr class="even">
+            <td>Challenging issue</td>
+            <td>10</td>
+        </tr>
+        <tr class="odd">
+            <td>Delight addition</td>
+            <td>10</td>
+        </tr>
+        <tr class="even">
+            <td>Specification</td>
+            <td>10</td>
+        </tr>
+        <tr class="odd">
+            <td>Decomposition</td>
+            <td>10</td>
+        </tr>
+    </table>
+<?php } ?>
 
 <?php if (!$judge_scored and $is_scored == 2 and $is_judge == 1) { ?>
     <h3 class="sub-heading">Manual Scoring</h3>

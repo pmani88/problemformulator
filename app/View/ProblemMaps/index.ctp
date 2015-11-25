@@ -24,10 +24,12 @@ $this->Html->css('index-pmap', null, array('inline' => false));
     <tr>
         <th>Id</th>
         <?php
-        if ($admin)
+        if ($admin) {
             echo "<th>Owner Id</th>";
-        echo "<th>Predicates</th>";
-        echo "<th>Hierarchy Depth</th>";
+            echo "<th>Predicates</th>";
+            echo "<th>Hierarchy Depth</th>";
+            echo "<th>Raw Score</th>";
+        }
         ?>
         <th>Name</th>
         <th>Description</th>
@@ -44,13 +46,10 @@ $this->Html->css('index-pmap', null, array('inline' => false));
     <?php foreach ($ProblemMaps as $problem_map): ?>
         <tr>
             <td><?php echo $problem_map['ProblemMap']['id']; ?></td>
-            <!-- Replaced with Owner Id
-				<td><?php //echo $problem_map['User']['firstname'] . ' ' . $problem_map['User']['lastname']; ?>  
-			-->
             <?php
             if ($admin) {
                 echo "<td>" . $problem_map['User']['id'] . "</td>";
-                echo "<td>" . $this->Html->link("Download", array(
+                echo "<td>" . $this->Html->link("Predicates", array(
                         'controller' => 'problem_maps',
                         'action' => 'view_predicate',
                         $problem_map['ProblemMap']['id']
@@ -58,6 +57,16 @@ $this->Html->css('index-pmap', null, array('inline' => false));
                 echo "<td>" . $this->Html->link("Depth", array(
                         'controller' => 'problem_maps',
                         'action' => 'view_entity_depth',
+                        $problem_map['ProblemMap']['id']
+                    )) . "</td>";
+                echo "<td>" . $this->Html->link("Score", array(
+                        'controller' => 'problem_maps',
+                        'action' => 'pmap_score',
+                        $problem_map['ProblemMap']['id']
+                    )) . "</td>";
+                echo "<td>" . $this->Html->link("CSV Score", array(
+                        'controller' => 'problem_maps',
+                        'action' => 'download_scoring_stats',
                         $problem_map['ProblemMap']['id']
                     )) . "</td>";
             }

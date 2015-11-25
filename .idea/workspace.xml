@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3e2ac13a-fc15-42b0-b9b1-a02d65c7ce6d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Controller/ProblemMapsController.php" afterPath="$PROJECT_DIR$/app/Controller/ProblemMapsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/ProblemMaps/add_problem_set.ctp" afterPath="$PROJECT_DIR$/app/View/ProblemMaps/add_problem_set.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Config/bootstrap.php" afterPath="$PROJECT_DIR$/app/Config/bootstrap.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/ProblemMaps/index.ctp" afterPath="$PROJECT_DIR$/app/View/ProblemMaps/index.ctp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/webroot/css/pmap_score.css" afterPath="$PROJECT_DIR$/app/webroot/css/pmap_score.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/ProblemMaps/pmap_score.ctp" afterPath="$PROJECT_DIR$/app/View/ProblemMaps/pmap_score.ctp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -32,46 +31,80 @@
       <file leaf-file-name="ProblemMapsController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Controller/ProblemMapsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.6181817">
-              <caret line="980" column="31" selection-start-line="980" selection-start-column="12" selection-end-line="980" selection-end-column="31" />
+            <state vertical-scroll-proportion="-3.709091">
+              <caret line="935" column="30" selection-start-line="935" selection-start-column="20" selection-end-line="935" selection-end-column="30" />
               <folding>
-                <marker date="1448273055446" expanded="true" signature="10789:10808" placeholder="..." />
-                <marker date="1448273055446" expanded="true" signature="10887:10915" placeholder="..." />
-                <marker date="1448273055446" expanded="true" signature="16698:16772" placeholder="SELECT * FRO..." />
-                <marker date="1448273055446" expanded="true" signature="17280:17354" placeholder="SELECT * FRO..." />
-                <marker date="1448273055446" expanded="true" signature="17858:17929" placeholder="SELECT * FRO..." />
-                <marker date="1448273055446" expanded="true" signature="18433:18504" placeholder="SELECT * FRO..." />
-                <marker date="1448273055446" expanded="true" signature="19008:19079" placeholder="SELECT * FRO..." />
-                <marker date="1448273055446" expanded="true" signature="19580:19648" placeholder="SELECT * FRO..." />
-                <marker date="1448273055446" expanded="true" signature="20559:20602" placeholder="SELECT * FRO..." />
-                <marker date="1448273055446" expanded="true" signature="31166:31219" placeholder="Select id fr..decompositions..." />
-                <marker date="1448273055446" expanded="true" signature="31519:31648" placeholder="Select id fr..entities..." />
-                <marker date="1448273055446" expanded="true" signature="31961:32053" placeholder="Update entit..." />
-                <marker date="1448273055446" expanded="true" signature="32135:32259" placeholder="Select id fr..entities..." />
-                <marker date="1448273055446" expanded="true" signature="32575:32662" placeholder="Update entit..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42663" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42720" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42732" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42733" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42752" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42759" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42771" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42775" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42786" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42790" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42794" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42618:42805" placeholder="SELECT SUM(e..entities..." />
-                <marker date="1448273055446" expanded="true" signature="42857:43053" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="10896:10915" placeholder="..." />
+                <marker date="1448417602512" expanded="true" signature="10994:11022" placeholder="..." />
+                <marker date="1448417602512" expanded="true" signature="11605:11655" placeholder="..." />
+                <marker date="1448417602512" expanded="true" signature="11782:11830" placeholder="..." />
+                <marker date="1448417602512" expanded="true" signature="16805:16879" placeholder="SELECT * FRO..." />
+                <marker date="1448417602512" expanded="true" signature="17387:17461" placeholder="SELECT * FRO..." />
+                <marker date="1448417602512" expanded="true" signature="17965:18036" placeholder="SELECT * FRO..." />
+                <marker date="1448417602512" expanded="true" signature="18540:18611" placeholder="SELECT * FRO..." />
+                <marker date="1448417602512" expanded="true" signature="19115:19186" placeholder="SELECT * FRO..." />
+                <marker date="1448417602512" expanded="true" signature="19687:19755" placeholder="SELECT * FRO..." />
+                <marker date="1448417602512" expanded="true" signature="20666:20709" placeholder="SELECT * FRO..." />
+                <marker date="1448417602512" expanded="true" signature="31353:31406" placeholder="Select id fr..decompositions..." />
+                <marker date="1448417602512" expanded="true" signature="31706:31835" placeholder="Select id fr..entities..." />
+                <marker date="1448417602512" expanded="true" signature="32148:32240" placeholder="Update entit..." />
+                <marker date="1448417602512" expanded="true" signature="32322:32446" placeholder="Select id fr..entities..." />
+                <marker date="1448417602512" expanded="true" signature="32762:32849" placeholder="Update entit..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40516" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40573" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40585" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40586" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40605" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40612" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40624" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40628" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40639" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40643" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40647" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40471:40658" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="40710:40906" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="44959:45128" placeholder="SELECT SUM(e..entities..." />
+                <marker date="1448417602512" expanded="true" signature="45129:45130" placeholder="SELECT SUM(e..entities..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JudgesScore.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Model/JudgesScore.php">
+      <file leaf-file-name="index.ctp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/index.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.72183096">
+              <caret line="64" column="56" selection-start-line="64" selection-start-column="56" selection-end-line="64" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CsvHelper.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/View/Helper/CsvHelper.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-8.115385">
-              <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+              <caret line="56" column="13" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="download_scoring_stats.ctp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/download_scoring_stats.ctp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.1923075">
+              <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bootstrap.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Config/bootstrap.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.056603774">
+              <caret line="85" column="42" selection-start-line="85" selection-start-column="42" selection-end-line="85" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -80,69 +113,11 @@
       <file leaf-file-name="pmap_score.ctp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/pmap_score.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.115385">
-              <caret line="116" column="29" selection-start-line="116" selection-start-column="29" selection-end-line="116" selection-end-column="29" />
+            <state vertical-scroll-proportion="-9.423077">
+              <caret line="143" column="17" selection-start-line="143" selection-start-column="17" selection-end-line="143" selection-end-column="17" />
               <folding>
                 <element signature="e#2012#2081#0#PHP" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="add_problem_set.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/add_problem_set.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.423077">
-              <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
-              <folding>
-                <marker date="1447835999103" expanded="true" signature="1053:1143" placeholder="..." />
-                <marker date="1447835999103" expanded="true" signature="1099:1142" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="view_problem_set.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/view_problem_set.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="50" column="36" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
-              <folding>
-                <element signature="e#3507#3598#0#PHP" expanded="true" />
-                <element signature="e#4830#4865#0#PHP" expanded="true" />
-                <marker date="1447906071371" expanded="true" signature="2058:2070" placeholder="..." />
-                <marker date="1447906071371" expanded="true" signature="2248:2259" placeholder="..." />
-                <marker date="1447906071371" expanded="true" signature="3658:3741" placeholder="..." />
-                <marker date="1447906071371" expanded="true" signature="3976:4002" placeholder="..." />
-                <marker date="1447906071371" expanded="true" signature="3976:4007" placeholder="..." />
-                <marker date="1447906071371" expanded="true" signature="4064:4090" placeholder="..." />
-                <marker date="1447906071371" expanded="true" signature="4064:4095" placeholder="..." />
-                <marker date="1447906071371" expanded="true" signature="4149:4175" placeholder="..." />
-                <marker date="1447906071371" expanded="true" signature="4149:4180" placeholder="..." />
-                <marker date="1447906071371" expanded="true" signature="4246:4267" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edit.ctp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/edit.ctp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
-              <folding>
-                <marker date="1400184516000" expanded="true" signature="1247:1332" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pmap_score.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/webroot/css/pmap_score.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4006734">
-              <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -177,11 +152,17 @@
         <option value="$PROJECT_DIR$/app/webroot/css/view-pmap.css" />
         <option value="$PROJECT_DIR$/app/webroot/css/pmap_score_plain.css" />
         <option value="$PROJECT_DIR$/app/View/ProblemMaps/add_problem_set.ctp" />
-        <option value="$PROJECT_DIR$/app/View/ProblemMaps/index.ctp" />
         <option value="$PROJECT_DIR$/app/View/ProblemMaps/view_problem_set.ctp" />
-        <option value="$PROJECT_DIR$/app/Controller/ProblemMapsController.php" />
-        <option value="$PROJECT_DIR$/app/View/ProblemMaps/pmap_score.ctp" />
         <option value="$PROJECT_DIR$/app/webroot/css/pmap_score.css" />
+        <option value="$PROJECT_DIR$/app/Controller/Component/PhpExcelComponent.php" />
+        <option value="$PROJECT_DIR$/app/View/ProblemMaps/pmap_score.ctp" />
+        <option value="$PROJECT_DIR$/app/Config/bootstrap.php" />
+        <option value="$PROJECT_DIR$/app/View/Helper/CsvHelper.php" />
+        <option value="$PROJECT_DIR$/app/View/Helper/xls.php" />
+        <option value="$PROJECT_DIR$/app/View/Helper/xlsHelper.php" />
+        <option value="$PROJECT_DIR$/app/View/ProblemMaps/download_scoring_stats.ctp" />
+        <option value="$PROJECT_DIR$/app/Controller/ProblemMapsController.php" />
+        <option value="$PROJECT_DIR$/app/View/ProblemMaps/index.ctp" />
       </list>
     </option>
   </component>
@@ -195,15 +176,12 @@
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="PhpTemplates">
-    <option name="NEW_PHP_FILE_LAST_EXTENSION" value="ctp" />
-  </component>
   <component name="PhpWebServerValidation" path_to_validation_script="C:\xampp\htdocs\problemformulator" selected_validation_type="LOCAL" web_path_to_validation_script="http://127.0.0.1/problemformulator" />
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP 5.6" />
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1370" />
+    <option name="width" value="1382" />
     <option name="height" value="754" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -229,6 +207,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -276,7 +255,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webroot" />
+              <option name="myItemId" value="View" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -294,17 +273,150 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webroot" />
+              <option name="myItemId" value="View" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
+              <option name="myItemId" value="Helper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Vendor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Locale" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LC_MESSAGES" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="problemformulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -402,15 +514,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1370" height="754" extended-state="1" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17938931" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19062027" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23794213" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -421,7 +534,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32861635" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2389937" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17767295" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -465,13 +577,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/Cake/Model/Model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1549" column="9" selection-start-line="1549" selection-start-column="9" selection-end-line="1549" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -491,90 +596,37 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="423" column="20" selection-start-line="423" selection-start-column="20" selection-end-line="423" selection-end-column="20" />
           <folding>
-            <marker date="1448273055446" expanded="true" signature="10789:10808" placeholder="..." />
-            <marker date="1448273055446" expanded="true" signature="10887:10915" placeholder="..." />
-            <marker date="1448273055446" expanded="true" signature="16698:16772" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="17280:17354" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="17858:17929" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="18433:18504" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="19008:19079" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="19580:19648" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="20559:20602" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="31166:31219" placeholder="Select id fr..decompositions..." />
-            <marker date="1448273055446" expanded="true" signature="31519:31648" placeholder="Select id fr..entities..." />
-            <marker date="1448273055446" expanded="true" signature="31961:32053" placeholder="Update entit..." />
-            <marker date="1448273055446" expanded="true" signature="32135:32259" placeholder="Select id fr..entities..." />
-            <marker date="1448273055446" expanded="true" signature="32575:32662" placeholder="Update entit..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42663" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42720" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42732" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42733" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42752" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42759" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42771" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42775" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42786" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42790" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42794" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42805" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42857:43053" placeholder="SELECT SUM(e..entities..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Controller/UsersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Controller/ProblemMapsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="423" column="20" selection-start-line="423" selection-start-column="20" selection-end-line="423" selection-end-column="20" />
-          <folding>
-            <marker date="1448273055446" expanded="true" signature="10789:10808" placeholder="..." />
-            <marker date="1448273055446" expanded="true" signature="10887:10915" placeholder="..." />
-            <marker date="1448273055446" expanded="true" signature="16698:16772" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="17280:17354" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="17858:17929" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="18433:18504" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="19008:19079" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="19580:19648" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="20559:20602" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="31166:31219" placeholder="Select id fr..decompositions..." />
-            <marker date="1448273055446" expanded="true" signature="31519:31648" placeholder="Select id fr..entities..." />
-            <marker date="1448273055446" expanded="true" signature="31961:32053" placeholder="Update entit..." />
-            <marker date="1448273055446" expanded="true" signature="32135:32259" placeholder="Select id fr..entities..." />
-            <marker date="1448273055446" expanded="true" signature="32575:32662" placeholder="Update entit..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42663" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42720" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42732" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42733" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42752" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42759" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42771" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42775" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42786" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42790" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42794" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42805" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42857:43053" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="10896:10915" placeholder="..." />
+            <marker date="1448417602512" expanded="true" signature="10994:11022" placeholder="..." />
+            <marker date="1448417602512" expanded="true" signature="11605:11655" placeholder="..." />
+            <marker date="1448417602512" expanded="true" signature="11782:11830" placeholder="..." />
+            <marker date="1448417602512" expanded="true" signature="16805:16879" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="17387:17461" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="17965:18036" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="18540:18611" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="19115:19186" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="19687:19755" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="20666:20709" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="31353:31406" placeholder="Select id fr..decompositions..." />
+            <marker date="1448417602512" expanded="true" signature="31706:31835" placeholder="Select id fr..entities..." />
+            <marker date="1448417602512" expanded="true" signature="32148:32240" placeholder="Update entit..." />
+            <marker date="1448417602512" expanded="true" signature="32322:32446" placeholder="Select id fr..entities..." />
+            <marker date="1448417602512" expanded="true" signature="32762:32849" placeholder="Update entit..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40516" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40573" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40585" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40586" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40605" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40612" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40624" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40628" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40639" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40643" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40647" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40658" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40710:40906" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="44959:45128" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="45129:45130" placeholder="SELECT SUM(e..entities..." />
           </folding>
         </state>
       </provider>
@@ -806,10 +858,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-          <folding>
-            <marker date="1446095326279" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1446095326279" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -818,7 +866,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
           <folding>
-            <marker date="1400184516000" expanded="true" signature="1247:1332" placeholder="..." />
+            <marker date="1400184516000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -836,18 +884,18 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="50" column="36" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
           <folding>
-            <element signature="e#3507#3598#0#PHP" expanded="true" />
-            <element signature="e#4830#4865#0#PHP" expanded="true" />
-            <marker date="1447906071371" expanded="true" signature="2058:2070" placeholder="..." />
-            <marker date="1447906071371" expanded="true" signature="2248:2259" placeholder="..." />
-            <marker date="1447906071371" expanded="true" signature="3658:3741" placeholder="..." />
-            <marker date="1447906071371" expanded="true" signature="3976:4002" placeholder="..." />
-            <marker date="1447906071371" expanded="true" signature="3976:4007" placeholder="..." />
-            <marker date="1447906071371" expanded="true" signature="4064:4090" placeholder="..." />
-            <marker date="1447906071371" expanded="true" signature="4064:4095" placeholder="..." />
-            <marker date="1447906071371" expanded="true" signature="4149:4175" placeholder="..." />
-            <marker date="1447906071371" expanded="true" signature="4149:4180" placeholder="..." />
-            <marker date="1447906071371" expanded="true" signature="4246:4267" placeholder="..." />
+            <element signature="e#3507#3598#0#PHP" expanded="false" />
+            <element signature="e#4830#4865#0#PHP" expanded="false" />
+            <marker date="1447906071371" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1447906071371" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1447906071371" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1447906071371" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1447906071371" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1447906071371" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1447906071371" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1447906071371" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1447906071371" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1447906071371" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -856,7 +904,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -872,21 +919,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/index.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13204226">
-          <caret line="79" column="18" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Model/JudgesScore.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.115385">
+        <state vertical-scroll-proportion="0.0">
           <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
           <folding />
         </state>
@@ -894,65 +932,109 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/add_problem_set.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.423077">
+        <state vertical-scroll-proportion="0.0">
           <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
           <folding>
-            <marker date="1447835999103" expanded="true" signature="1053:1143" placeholder="..." />
-            <marker date="1447835999103" expanded="true" signature="1099:1142" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Controller/ProblemMapsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.6181817">
-          <caret line="980" column="31" selection-start-line="980" selection-start-column="12" selection-end-line="980" selection-end-column="31" />
-          <folding>
-            <marker date="1448273055446" expanded="true" signature="10789:10808" placeholder="..." />
-            <marker date="1448273055446" expanded="true" signature="10887:10915" placeholder="..." />
-            <marker date="1448273055446" expanded="true" signature="16698:16772" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="17280:17354" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="17858:17929" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="18433:18504" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="19008:19079" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="19580:19648" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="20559:20602" placeholder="SELECT * FRO..." />
-            <marker date="1448273055446" expanded="true" signature="31166:31219" placeholder="Select id fr..decompositions..." />
-            <marker date="1448273055446" expanded="true" signature="31519:31648" placeholder="Select id fr..entities..." />
-            <marker date="1448273055446" expanded="true" signature="31961:32053" placeholder="Update entit..." />
-            <marker date="1448273055446" expanded="true" signature="32135:32259" placeholder="Select id fr..entities..." />
-            <marker date="1448273055446" expanded="true" signature="32575:32662" placeholder="Update entit..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42663" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42720" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42732" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42733" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42752" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42759" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42771" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42775" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42786" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42790" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42794" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42618:42805" placeholder="SELECT SUM(e..entities..." />
-            <marker date="1448273055446" expanded="true" signature="42857:43053" placeholder="SELECT SUM(e..entities..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/pmap_score.ctp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.115385">
-          <caret line="116" column="29" selection-start-line="116" selection-start-column="29" selection-end-line="116" selection-end-column="29" />
-          <folding>
-            <element signature="e#2012#2081#0#PHP" expanded="true" />
+            <marker date="1447835999103" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1447835999103" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/webroot/css/pmap_score.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4006734">
-          <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/Cake/Core/App.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34859154">
+          <caret line="600" column="27" selection-start-line="600" selection-start-column="27" selection-end-line="600" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/pmap_score.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.423077">
+          <caret line="143" column="17" selection-start-line="143" selection-start-column="17" selection-end-line="143" selection-end-column="17" />
+          <folding>
+            <element signature="e#2012#2081#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Config/bootstrap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.056603774">
+          <caret line="85" column="42" selection-start-line="85" selection-start-column="42" selection-end-line="85" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/Helper/CsvHelper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.115385">
+          <caret line="56" column="13" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/download_scoring_stats.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.1923075">
+          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Controller/ProblemMapsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.709091">
+          <caret line="935" column="30" selection-start-line="935" selection-start-column="20" selection-end-line="935" selection-end-column="30" />
+          <folding>
+            <marker date="1448417602512" expanded="true" signature="10896:10915" placeholder="..." />
+            <marker date="1448417602512" expanded="true" signature="10994:11022" placeholder="..." />
+            <marker date="1448417602512" expanded="true" signature="11605:11655" placeholder="..." />
+            <marker date="1448417602512" expanded="true" signature="11782:11830" placeholder="..." />
+            <marker date="1448417602512" expanded="true" signature="16805:16879" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="17387:17461" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="17965:18036" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="18540:18611" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="19115:19186" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="19687:19755" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="20666:20709" placeholder="SELECT * FRO..." />
+            <marker date="1448417602512" expanded="true" signature="31353:31406" placeholder="Select id fr..decompositions..." />
+            <marker date="1448417602512" expanded="true" signature="31706:31835" placeholder="Select id fr..entities..." />
+            <marker date="1448417602512" expanded="true" signature="32148:32240" placeholder="Update entit..." />
+            <marker date="1448417602512" expanded="true" signature="32322:32446" placeholder="Select id fr..entities..." />
+            <marker date="1448417602512" expanded="true" signature="32762:32849" placeholder="Update entit..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40516" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40573" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40585" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40586" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40605" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40612" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40624" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40628" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40639" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40643" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40647" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40471:40658" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="40710:40906" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="44959:45128" placeholder="SELECT SUM(e..entities..." />
+            <marker date="1448417602512" expanded="true" signature="45129:45130" placeholder="SELECT SUM(e..entities..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/View/ProblemMaps/index.ctp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.72183096">
+          <caret line="64" column="56" selection-start-line="64" selection-start-column="56" selection-end-line="64" selection-end-column="56" />
           <folding />
         </state>
       </provider>
