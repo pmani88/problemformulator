@@ -9,4 +9,5 @@ $this->CSV->addRow($total_entities);
 $this->CSV->addRow($total_entities_scored);
 $this->CSV->addRow($total_entities_not_scored);
 
-echo  $this->CSV->render('RawCSV');
+$fn = 'RawScore_'.$problem_map['ProblemMap']['id'];
+echo  $this->CSV->render($fn);

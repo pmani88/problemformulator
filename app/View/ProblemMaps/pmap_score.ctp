@@ -58,7 +58,7 @@ $this->Html->css('pmap_score', null, array('inline' => false));
 //echo java_context()->getServlet()->GetStsSim();
 
 ?>
-<?php if ($is_scored == 1) { ?>
+
     <h3 class="sub-heading">P-Map Score</h3>
     <table>
         <tr>
@@ -104,7 +104,7 @@ $this->Html->css('pmap_score', null, array('inline' => false));
             <td>10</td>
         </tr>
     </table>
-<?php } ?>
+
 
 <?php if (!$judge_scored and $is_scored == 2 and $is_judge == 1) { ?>
     <h3 class="sub-heading">Manual Scoring</h3>
