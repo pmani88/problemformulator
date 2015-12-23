@@ -1102,15 +1102,73 @@ class ProblemMapsController extends AppController
     {
         $this->Entity->recursive = -1;
 
-        //Requirement without any subcategories
-        $rec_nsc_score = $this->Entity->query('SELECT SUM(ent_score) as score FROM entities
-                                               WHERE problem_map_id = ' . $pmapid . ' and type="requirement" and subtype="" and ent_score > -1');
+        //Requirement without subcategories
+        $req_elicitation = $this->Entity->query('
+                            SELECT SUM(ent_score) as score FROM entities
+                            WHERE problem_map_id = ' . $pmapid . ' and type="requirement" and subtype=""');
 
-        $rec_obj_score = $this->Entity->query('SELECT SUM(ent_score) as score FROM entities
-                                               WHERE problem_map_id = ' . $pmapid . ' and type="requirement" and subtype="objective" and ent_score > -1');
+        $use_desc = $this->Entity->query('
+                            SELECT SUM(ent_score) as score FROM entities
+                            WHERE problem_map_id = ' . $pmapid . ' and type="usescenario"');
 
-        echo 'Requirement Elicitation: ' . ($rec_nsc_score[0][0]['score'] || 0);
-        echo 'Objective: ' . $rec_obj_score[0][0]['score'];
+        $key_obj = $this->Entity->query('
+                            SELECT SUM(ent_score) as score FROM entities
+                            WHERE problem_map_id = ' . $pmapid . ' and type="requirement" and subtype="objective" and ent_score > 1');
+
+        $challenging_issue = $this->Entity->query('
+                            SELECT SUM(ent_score) as score FROM entities
+                            WHERE problem_map_id = ' . $pmapid . ' and type="issue" and ent_score > 1');
+
+        $delight_addition = $this->Entity->query('
+                            SELECT SUM(ent_score) as score FROM entities
+                            WHERE problem_map_id = ' . $pmapid . ' and type != "issue" and ent_score > 1');
+
+        $specification = $this->Entity->query('
+                            SELECT SUM(ent_score) as score FROM entities
+                            WHERE problem_map_id = ' . $pmapid . ' and type="requirement" and subtype="specification"');
+
+        $decomposition = $this->Entity->query('
+                            SELECT SUM(ent_score) as score FROM entities
+                            WHERE problem_map_id = ' . $pmapid . ' AND
+                            (decomposition_id IN (SELECT id FROM decompositions WHERE problem_map_id = ' . $pmapid . ') OR
+                            current_decomposition IN (SELECT id FROM decompositions WHERE problem_map_id = ' . $pmapid . '))');
+
+        $link_ent_ids = $this->Entity->query('
+                            SELECT from_entity_id AS entity_id FROM links
+                            WHERE problem_map_id = ' . $pmapid . '
+                            UNION ALL
+                            SELECT to_entity_id AS entity_id FROM links
+                            WHERE problem_map_id = ' . $pmapid . '
+                            ORDER BY entity_id');
+
+        $prev_ent_id = -1;
+        $prev_ent_score = 0;
+        $relationship = 0;
+        foreach ($link_ent_ids as $curr_ent_id) {
+            if ($prev_ent_id == $curr_ent_id[0]['entity_id']) {
+                $relationship += $prev_ent_score;
+            } else {
+                $curr_ent_score = $this->Entity->find('first', array(
+                        'conditions' => array('Entity.id' => $curr_ent_id[0]['entity_id']),
+                        'fields' => array('ent_score')))['Entity']['ent_score'];
+
+                $relationship += $curr_ent_score;
+
+                $prev_ent_id = $curr_ent_id[0]['entity_id'];
+                $prev_ent_score = $curr_ent_score;
+            }
+        }
+
+        //TODO: info seeking
+
+        echo 'Requirement Elicitation: ' . (is_null($req_elicitation[0][0]['score']) ? 0 : $req_elicitation[0][0]['score']);
+        echo '<br/>Use Description: ' . (is_null($use_desc[0][0]['score']) ? 0 : $use_desc[0][0]['score']);
+        echo '<br/>Key Objectives: ' . (is_null($key_obj[0][0]['score']) ? 0 : $key_obj[0][0]['score']);
+        echo '<br/>Challenging Issue: ' . (is_null($challenging_issue[0][0]['score']) ? 0 : $challenging_issue[0][0]['score']);
+        echo '<br/>Delight Addition: ' . (is_null($delight_addition[0][0]['score']) ? 0 : $delight_addition[0][0]['score']);
+        echo '<br/>Specifications: ' . (is_null($specification[0][0]['score']) ? 0 : $specification[0][0]['score']);
+        echo '<br/>Decomposition: ' . (is_null($decomposition[0][0]['score']) ? 0 : $decomposition[0][0]['score']);
+        echo '<br/>Relationship: ' . $relationship;
     }
 
     public function manual_pmap_scoring($problem_map)
@@ -1229,7 +1287,8 @@ class ProblemMapsController extends AppController
 
         }
 
-        $header = ['Type', 'SubType', 'Count of Ent', 'Count of Ent Scored', 'Count of Ent Not Scored', 'Count of +ve Score', 'Count of -ve Score', 'Score'];
+        $header = ['Type', 'SubType', 'Count of Ent', 'Count of Ent Scored', 'Count of Ent Not Scored', 'Count of +ve Score',
+            'Count of -ve Score', 'Score'];
 
         $total_entities = ['Total number of Entities', $total_num_entities];
         $total_entities_scored = ['Total number of Entities Scored', $cnt_total_ent_scored];
@@ -1240,6 +1299,5 @@ class ProblemMapsController extends AppController
         $this->set(compact('total_entities'));
         $this->set(compact('total_entities_scored'));
         $this->set(compact('total_entities_not_scored'));
-
     }
 }
