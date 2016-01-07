@@ -955,13 +955,17 @@ class ProblemMapsController extends AppController
                 $pmapset = $this->ProblemSet->findById($pmap['ProblemMap']['problem_set_id']);
                 $pmapset_judge_count = $pmapset['ProblemSet']['judge_count'];
 
+                // save judges score
                 if ($pmap_judge_count < $pmapset_judge_count) {
                     $this->ProblemMap->save(array('id' => $pmapid, 'judge_count' => $pmap_judge_count + 1));
                     $this->JudgesScore->saveAll($this->request->data['Judge_Scores']);
+//                  TODO:  create new centroids after all judges scored?
                 }
 
                 if ($pmap_judge_count == $pmapset_judge_count or ($pmap_judge_count + 1) == $pmapset_judge_count) {
-                    // TODO publish score
+//                    TODO: Calculate Pmap skills - post required?
+//                    TODO: calculate raw score when all judges scored
+//                    TODO: then calc pmap skills
                 }
 
             }
@@ -1102,38 +1106,58 @@ class ProblemMapsController extends AppController
     {
         $this->Entity->recursive = -1;
 
-        //Requirement without subcategories
-        $req_elicitation = $this->Entity->query('
+        $pmapid_arr = array(210, 211, 212, 213, 215, 216, 217, 220, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 236, 237, 238, 239);
+
+        echo '<table border="1">';
+        echo '<tr>';
+        echo '<th>Pmap ID</th>';
+        echo '<th>Requirement Elicitation</th>';
+        echo '<th>Relationship Identification</th>';
+        echo '<th>Information Seeking</th>';
+        echo '<th>Use Description</th>';
+        echo '<th>Key Objective Identification</th>';
+        echo '<th>Challenging Issue</th>';
+        echo '<th>Delight Addition</th>';
+        echo '<th>Specification</th>';
+        echo '<th>Decomposition</th>';
+        echo '</tr>';
+
+        foreach ($pmapid_arr as $pmapid) {
+//          print_r($pmapid);
+
+//          Requirement without subcategories
+            $req_elicitation = $this->Entity->query('
                             SELECT SUM(ent_score) as score FROM entities
                             WHERE problem_map_id = ' . $pmapid . ' and type="requirement" and subtype=""');
 
-        $use_desc = $this->Entity->query('
+            $use_desc = $this->Entity->query('
                             SELECT SUM(ent_score) as score FROM entities
                             WHERE problem_map_id = ' . $pmapid . ' and type="usescenario"');
 
-        $key_obj = $this->Entity->query('
+            $key_obj = $this->Entity->query('
                             SELECT SUM(ent_score) as score FROM entities
                             WHERE problem_map_id = ' . $pmapid . ' and type="requirement" and subtype="objective" and ent_score > 1');
 
-        $challenging_issue = $this->Entity->query('
+            $challenging_issue = $this->Entity->query('
                             SELECT SUM(ent_score) as score FROM entities
                             WHERE problem_map_id = ' . $pmapid . ' and type="issue" and ent_score > 1');
 
-        $delight_addition = $this->Entity->query('
+            $delight_addition = $this->Entity->query('
                             SELECT SUM(ent_score) as score FROM entities
                             WHERE problem_map_id = ' . $pmapid . ' and type != "issue" and ent_score > 1');
 
-        $specification = $this->Entity->query('
+            $specification = $this->Entity->query('
                             SELECT SUM(ent_score) as score FROM entities
                             WHERE problem_map_id = ' . $pmapid . ' and type="requirement" and subtype="specification"');
 
-        $decomposition = $this->Entity->query('
+            $decomposition = $this->Entity->query('
                             SELECT SUM(ent_score) as score FROM entities
                             WHERE problem_map_id = ' . $pmapid . ' AND
                             (decomposition_id IN (SELECT id FROM decompositions WHERE problem_map_id = ' . $pmapid . ') OR
                             current_decomposition IN (SELECT id FROM decompositions WHERE problem_map_id = ' . $pmapid . '))');
 
-        $link_ent_ids = $this->Entity->query('
+//          Relationship - Links
+            $link_ent_ids = $this->Entity->query('
                             SELECT from_entity_id AS entity_id FROM links
                             WHERE problem_map_id = ' . $pmapid . '
                             UNION ALL
@@ -1141,34 +1165,53 @@ class ProblemMapsController extends AppController
                             WHERE problem_map_id = ' . $pmapid . '
                             ORDER BY entity_id');
 
-        $prev_ent_id = -1;
-        $prev_ent_score = 0;
-        $relationship = 0;
-        foreach ($link_ent_ids as $curr_ent_id) {
-            if ($prev_ent_id == $curr_ent_id[0]['entity_id']) {
-                $relationship += $prev_ent_score;
-            } else {
-                $curr_ent_score = $this->Entity->find('first', array(
+            $prev_ent_id = -1;
+            $prev_ent_score = 0;
+            $relationship = 0;
+            foreach ($link_ent_ids as $curr_ent_id) {
+                if ($prev_ent_id == $curr_ent_id[0]['entity_id']) {
+                    $relationship += $prev_ent_score;
+                } else {
+                    $curr_ent_score = $this->Entity->find('first', array(
                         'conditions' => array('Entity.id' => $curr_ent_id[0]['entity_id']),
                         'fields' => array('ent_score')))['Entity']['ent_score'];
 
-                $relationship += $curr_ent_score;
+                    $relationship += $curr_ent_score;
 
-                $prev_ent_id = $curr_ent_id[0]['entity_id'];
-                $prev_ent_score = $curr_ent_score;
+                    $prev_ent_id = $curr_ent_id[0]['entity_id'];
+                    $prev_ent_score = $curr_ent_score;
+                }
             }
+
+//          Information Seeking
+            $info_seek = $this->Entity->query('
+                            SELECT SUM(ent_score) as score FROM entities
+                            WHERE problem_map_id = ' . $pmapid . ' and type="issue" and subtype="question"');
+
+//            echo 'Requirement Elicitation: ' . (is_null($req_elicitation[0][0]['score']) ? 0 : $req_elicitation[0][0]['score']);
+//            echo '<br/>Use Description: ' . (is_null($use_desc[0][0]['score']) ? 0 : $use_desc[0][0]['score']);
+//            echo '<br/>Key Objectives: ' . (is_null($key_obj[0][0]['score']) ? 0 : $key_obj[0][0]['score']);
+//            echo '<br/>Challenging Issue: ' . (is_null($challenging_issue[0][0]['score']) ? 0 : $challenging_issue[0][0]['score']);
+//            echo '<br/>Delight Addition: ' . (is_null($delight_addition[0][0]['score']) ? 0 : $delight_addition[0][0]['score']);
+//            echo '<br/>Specifications: ' . (is_null($specification[0][0]['score']) ? 0 : $specification[0][0]['score']);
+//            echo '<br/>Decomposition: ' . (is_null($decomposition[0][0]['score']) ? 0 : $decomposition[0][0]['score']);
+//            echo '<br/>Relationship: ' . $relationship;
+//            echo '<br/>Information Seeking: ' . (is_null($info_seek[0][0]['score']) ? 0 : $info_seek[0][0]['score']);
+
+            echo "<tr>";
+            echo "<td>" . $pmapid . "</td>";
+            echo "<td>" . (is_null($req_elicitation[0][0]['score']) ? 0 : $req_elicitation[0][0]['score']) . "</td>";
+            echo "<td>" . $relationship . "</td>";
+            echo "<td>" . (is_null($info_seek[0][0]['score']) ? 0 : $info_seek[0][0]['score']) . "</td>";
+            echo "<td>" . (is_null($use_desc[0][0]['score']) ? 0 : $use_desc[0][0]['score']) . "</td>";
+            echo "<td>" . (is_null($key_obj[0][0]['score']) ? 0 : $key_obj[0][0]['score']) . "</td>";
+            echo "<td>" . (is_null($challenging_issue[0][0]['score']) ? 0 : $challenging_issue[0][0]['score']) . "</td>";
+            echo "<td>" . (is_null($delight_addition[0][0]['score']) ? 0 : $delight_addition[0][0]['score']) . "</td>";
+            echo "<td>" . (is_null($specification[0][0]['score']) ? 0 : $specification[0][0]['score']) . "</td>";
+            echo "<td>" . (is_null($decomposition[0][0]['score']) ? 0 : $decomposition[0][0]['score']) . "</td>";
+            echo "</tr>";
         }
-
-        //TODO: info seeking
-
-        echo 'Requirement Elicitation: ' . (is_null($req_elicitation[0][0]['score']) ? 0 : $req_elicitation[0][0]['score']);
-        echo '<br/>Use Description: ' . (is_null($use_desc[0][0]['score']) ? 0 : $use_desc[0][0]['score']);
-        echo '<br/>Key Objectives: ' . (is_null($key_obj[0][0]['score']) ? 0 : $key_obj[0][0]['score']);
-        echo '<br/>Challenging Issue: ' . (is_null($challenging_issue[0][0]['score']) ? 0 : $challenging_issue[0][0]['score']);
-        echo '<br/>Delight Addition: ' . (is_null($delight_addition[0][0]['score']) ? 0 : $delight_addition[0][0]['score']);
-        echo '<br/>Specifications: ' . (is_null($specification[0][0]['score']) ? 0 : $specification[0][0]['score']);
-        echo '<br/>Decomposition: ' . (is_null($decomposition[0][0]['score']) ? 0 : $decomposition[0][0]['score']);
-        echo '<br/>Relationship: ' . $relationship;
+        echo '</table>';
     }
 
     public function manual_pmap_scoring($problem_map)

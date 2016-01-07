@@ -22,13 +22,14 @@ $this->Html->css('index-pmap', null, array('inline' => false));
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Id</th>
+        <th>Pmap Id</th>
         <?php
         if ($admin) {
             echo "<th>Owner Id</th>";
             echo "<th>Predicates</th>";
             echo "<th>Hierarchy Depth</th>";
             echo "<th>Raw Score</th>";
+            echo "<th>CSV Score</th>";
         }
         ?>
         <th>Name</th>
