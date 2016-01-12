@@ -67,7 +67,10 @@ $this->Html->css('pmap_score', null, array('inline' => false));
             <th>Score (10)</th>
         </tr>
         <tr class="odd">
-            <td class="merged-cell" rowspan="9">90</td>
+            <td class="merged-cell" rowspan="9">
+                <span>Your Score: 90</span>
+                <span>Max Score: 100</span>
+            </td>
             <td>Requirement Elicitation</td>
             <td>10</td>
         </tr>

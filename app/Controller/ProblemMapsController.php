@@ -935,7 +935,7 @@ class ProblemMapsController extends AppController
 
     public function pmap_score($pmapid)
     {
-        //  TODO: function call category_suggestion
+        //  TODO: function - category_suggestion
         //        $obj = new Java("Classifiers.MainClassifier");
         //        $obj->fetchScore($pmapid);
         //        $this->calculate_pmap_skills($pmapid);
@@ -946,7 +946,6 @@ class ProblemMapsController extends AppController
         $this->set(compact('problem_map'));
 
         if ($this->request->is('post')) {
-            // TODO: to store in entities table or entity_score table for judge?
             if (isset($this->request->data['Judge_Scores']) and !is_null($this->request->data['Judge_Scores'])) {
                 $pmap = $this->ProblemMap->findById($pmapid);
                 $pmap_judge_count = $pmap['ProblemMap']['judge_count'];
@@ -955,19 +954,24 @@ class ProblemMapsController extends AppController
                 $pmapset = $this->ProblemSet->findById($pmap['ProblemMap']['problem_set_id']);
                 $pmapset_judge_count = $pmapset['ProblemSet']['judge_count'];
 
-                // save judges score
+//                print_r($this->request->data['Judge_Scores']);
+//                return;
+
+//              save judges score
                 if ($pmap_judge_count < $pmapset_judge_count) {
-                    $this->ProblemMap->save(array('id' => $pmapid, 'judge_count' => $pmap_judge_count + 1));
+                    $pmap_judge_count++;
+                    $this->ProblemMap->save(array('id' => $pmapid, 'judge_count' => $pmap_judge_count));
                     $this->JudgesScore->saveAll($this->request->data['Judge_Scores']);
-//                  TODO:  create new centroids after all judges scored?
                 }
 
-                if ($pmap_judge_count == $pmapset_judge_count or ($pmap_judge_count + 1) == $pmapset_judge_count) {
+//              if all the judges completed manual grading
+                if ($pmap_judge_count == $pmapset_judge_count) {
 //                    TODO: Calculate Pmap skills - post required?
-//                    TODO: calculate raw score when all judges scored
+//                    TODO: calculate raw score from judges_score and update entities table
+//                    TODO: Update centroid table from judges_score table
 //                    TODO: then calc pmap skills
+//                    TODO: update is_scored = 1
                 }
-
             }
         }
 
