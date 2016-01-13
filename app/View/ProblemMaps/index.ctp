@@ -37,6 +37,7 @@ $this->Html->css('index-pmap', null, array('inline' => false));
         <th>Problem Set</th>
         <th>Score</th>
         <th>Actions</th>
+        <th>Auto Score</th>
         <th>Created</th>
     </tr>
     </thead>
@@ -103,6 +104,13 @@ $this->Html->css('index-pmap', null, array('inline' => false));
                 ));
                 ?>
 			--->
+            </td>
+            <td><?php echo $this->Html->link('Score', array(
+                    'action' => 'pmap_score',
+                    $problem_map['ProblemMap']['id']
+                ), array(
+                    'confirm' => 'Are you sure?'
+                )); ?>
             </td>
             <td><?php echo $problem_map['ProblemMap']['created']; ?></td>
         </tr>
