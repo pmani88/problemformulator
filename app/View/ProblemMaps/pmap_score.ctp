@@ -58,56 +58,55 @@ $this->Html->css('pmap_score', null, array('inline' => false));
 //echo java_context()->getServlet()->GetStsSim();
 
 ?>
-<?php if ($is_scored == 1) { ?>
+<?php //if ($is_scored == 1) { ?>
     <h3 class="sub-heading">P-Map Score</h3>
     <table>
         <tr>
             <th>Total Score</th>
             <th>PMap Skill</th>
-            <th>Score (10)</th>
+            <th>Score</th>
         </tr>
         <tr class="odd">
             <td class="merged-cell" rowspan="9">
-                <span>Your Score: 90</span>
-                <span>Max Score: 100</span>
+                <span><?php echo $total_score; ?></span>
             </td>
             <td>Requirement Elicitation</td>
-            <td>10</td>
+            <td> <?php echo $req_eli_score; ?></td>
         </tr>
         <tr class="even">
             <td>Relationship identification</td>
-            <td>10</td>
+            <td><?php echo $rel_score; ?></td>
         </tr>
         <tr class="odd">
             <td>Information seeking</td>
-            <td>10</td>
+            <td><?php echo $info_seek_score; ?></td>
         </tr>
         <tr class="even">
             <td>Use description</td>
-            <td>10</td>
+            <td><?php echo $use_des_score; ?></td>
         </tr>
         <tr class="odd">
             <td>Key objective identification</td>
-            <td>10</td>
+            <td><?php echo $key_obj_score; ?></td>
         </tr>
         <tr class="even">
             <td>Challenging issue</td>
-            <td>10</td>
+            <td><?php echo $chall_iss_score; ?></td>
         </tr>
         <tr class="odd">
             <td>Delight addition</td>
-            <td>10</td>
+            <td><?php echo $del_add_score; ?></td>
         </tr>
         <tr class="even">
             <td>Specification</td>
-            <td>10</td>
+            <td><?php echo $specs_score; ?></td>
         </tr>
         <tr class="odd">
             <td>Decomposition</td>
-            <td>10</td>
+            <td><?php echo $decomp_score; ?></td>
         </tr>
     </table>
-<?php } ?>
+<?php //} ?>
 
 <?php if (!$judge_scored and $is_scored == 2 and $is_judge == 1) { ?>
     <h3 class="sub-heading">Manual Scoring</h3>
